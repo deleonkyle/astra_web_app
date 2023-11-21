@@ -16,13 +16,12 @@ import uuid
 from flask_mail import Mail, Message
 
 app = Flask(__name__)
-app.secret_key = 'b1fd2e52903ba3d848b4ca718c9e2d2f08a94fa7d8721aa1'
 
 app.config['MAIL_SERVER'] = 'smtp.hostinger.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_USERNAME'] = 'admin@astrarealtycorporation.com'
-app.config['MAIL_PASSWORD'] = 'Astrarealty1@'
+app.config['MAIL_PASSWORD'] = '@'
 mail = Mail(app)
 
 db_host = 'localhost'
