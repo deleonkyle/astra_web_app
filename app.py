@@ -24,22 +24,17 @@ app.config['MAIL_USERNAME'] = 'admin@astrarealtycorporation.com'
 app.config['MAIL_PASSWORD'] = '@'
 mail = Mail(app)
 
-db_host = 'mysql-q1l0:3306'
-db_user = 'mysql'
-db_password = 'zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU='
-db_name = 'mysql'
-
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 def get_db_connection():
     try:
         connection = pymysql.connect(
-            host='mysql-q1l0:3306',
+            host='mysql-q1l0',
             user='mysql',
             password='zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU=',
             database='mysql',
             port=3306,
-            cursorclass=pymysql.cursors.DictCursor  # This allows fetching results as dictionaries
+            cursorclass=pymysql.cursors.DictCursor 
         )
         return connection
     except Exception as e:
