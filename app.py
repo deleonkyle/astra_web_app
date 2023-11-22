@@ -17,6 +17,7 @@ from flask_mail import Mail, Message
 
 
 app = Flask(__name__)
+app.config['SECRET_KEY'] = 'bb7e42435f3f1beb050dc60ae55475f828882ba40257e61a'
 
 app.config['MAIL_SERVER'] = 'smtp.hostinger.com'
 app.config['MAIL_PORT'] = 465
