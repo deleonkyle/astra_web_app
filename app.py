@@ -29,13 +29,15 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 def get_db_connection():
     db_config = {
-    'host': os.environ.get('MYSQL_HOST', 'mysql-q1l0'),
-    'user': os.environ.get('MYSQL_USER', 'mysql'),
-    'password': os.environ.get('MYSQL_PASSWORD', 'zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU='),
-    'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
-    'port': os.environ.get('MYSQL_PORT', '3306'),
+        'host': os.environ.get('MYSQL_HOST', 'mysql-q1l0'),
+        'user': os.environ.get('MYSQL_USER', 'mysql'),
+        'password': os.environ.get('MYSQL_PASSWORD', 'zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU='),
+        'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
+        'port': os.environ.get('MYSQL_PORT', 3306),
     }
     connection = pymysql.connect(**db_config)
+    return connection  # Add this line to return the connection object
+
 
 @app.route('/admin/admin_add_slots', methods=['GET'])
 def admin_input_slots():
