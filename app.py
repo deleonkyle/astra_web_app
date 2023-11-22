@@ -206,7 +206,7 @@ def admin_delete_slot(slot_id):
 
 @app.route('/')
 def index():
-    connection = pymysqlpool.get_connection()
+    connection = pymysql.get_connection()
     try:
         with connection.cursor() as cursor:
             query = "SELECT * FROM properties LIMIT 3"
