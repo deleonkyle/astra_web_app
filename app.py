@@ -31,23 +31,21 @@ db_name = 'mysql'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-def create_db_connection():
+def get_db_connection():
     try:
-        # Establish a database connection
-        connection = pymysql.connect(database="mysql", user="mysql", password="s5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI=", host="mysql-5-p6yg", port="3306")
+        connection = pymysql.connect(
+            host='mysql-5-p6yg',
+            user='mysql',
+            password='s5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS',
+            database='mysql',
+            port="3306",
+            cursorclass=pymysql.cursors.DictCursor  # This allows fetching results as dictionaries
+        )
         return connection
     except Exception as e:
-        # Handle database connection errors
         print(f"Error connecting to the database: {str(e)}")
         return None
-def get_db_connection():
-    db_config = {
-    'host': os.environ.get('MYSQL_HOST', 'mysql-5-p6yg'),
-    'user': os.environ.get('MYSQL_USER', 'mysql'),
-    'password': os.environ.get('MYSQL_PASSWORD', 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='),
-    'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
-    'port': os.environ.get('MYSQL_PORT', '3306'),
-    }
+
 @app.route('/admin/admin_add_slots', methods=['GET'])
 def admin_input_slots():
     # Fetch property listings from the 'properties' table, including the location
@@ -214,27 +212,24 @@ def admin_delete_slot(slot_id):
 
 @app.route('/')
 def index():
-    # Establish a database connection
     connection = get_db_connection()
 
-    # Prepare a cursor to execute SQL queries
-    cursor = connection.cursor()
+    if connection:
+        try:
+            with connection.cursor() as cursor:
+                query = "SELECT * FROM properties LIMIT 3"
+                cursor.execute(query)
+                featured_properties = cursor.fetchall()
+        except Exception as e:
+            print(f"Error executing SQL query: {str(e)}")
+        finally:
+            connection.close()
+    else:
+        # Handle the case where the database connection failed
+        featured_properties = []
 
-    # Query to select the first three properties from the database
-    query = "SELECT * FROM properties LIMIT 3"
-
-    # Execute the query
-    cursor.execute(query)
-
-    # Fetch the first three properties as a list of dictionaries
-    featured_properties = cursor.fetchall()
-
-    # Close the cursor and database connection
-    cursor.close()
-    connection.close()
-
-    # Render an HTML template and pass the featured property data to it
     return render_template('index.html', featured_properties=featured_properties)
+
 
 @app.route('/contact')
 def contact():
