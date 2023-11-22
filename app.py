@@ -26,7 +26,7 @@ mail = Mail(app)
 
 db_host = 'mysql-5-p6yg'
 db_user = 'mysql'
-db_password = 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='
+db_password = 'zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU='
 db_name = 'mysql'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
@@ -36,7 +36,7 @@ def get_db_connection():
         connection = pymysql.connect(
             host='mysql-5-p6yg',
             user='mysql',
-            password='s5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS',
+            password='zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU=',
             database='mysql',
             port=3306,
             cursorclass=pymysql.cursors.DictCursor  # This allows fetching results as dictionaries
