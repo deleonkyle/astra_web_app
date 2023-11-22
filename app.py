@@ -31,6 +31,15 @@ db_name = 'mysql'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
+def create_db_connection():
+    try:
+        # Establish a database connection
+        connection = pymysql.connect(database="mysql", user="mysql", password="s5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI=", host="mysql-5-p6yg", port="3306")
+        return connection
+    except Exception as e:
+        # Handle database connection errors
+        print(f"Error connecting to the database: {str(e)}")
+        return None
 def get_db_connection():
     db_config = {
     'host': os.environ.get('MYSQL_HOST', 'mysql-5-p6yg'),
