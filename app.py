@@ -1687,7 +1687,8 @@ def agent_login():
                     agent_id = agent[0]
                     stored_password_hash = agent[2]
 
-                    if check_password_hash(stored_password_hash, password):
+                    # Check the password using sha256_crypt.verify
+                    if sha256_crypt.verify(password, stored_password_hash):
                         session['agent_id'] = agent_id
                         flash('Login successful!', 'success')
                         return redirect('/agent/agent_dashboard')
@@ -1704,6 +1705,7 @@ def agent_login():
             connection.close()
 
     return render_template('/agent/agent_login.html')
+
 
 
 @app.route('/property_list')
