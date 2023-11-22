@@ -24,16 +24,21 @@ app.config['MAIL_USERNAME'] = 'admin@astrarealtycorporation.com'
 app.config['MAIL_PASSWORD'] = '@'
 mail = Mail(app)
 
-db_host = 'localhost'
-db_user = 'root'
-db_password = 'root'
-db_name = 'astra'
+db_host = 'mysql-uetk'
+db_user = 'mysql'
+db_password = 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='
+db_name = 'mysql'
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 def get_db_connection():
-    return pymysql.connect(host=db_host, user=db_user, password=db_password, database=db_name)
-
+    db_config = {
+    'host': os.environ.get('MYSQL_HOST', 'mysql-uetk'),
+    'user': os.environ.get('MYSQL_USER', 'mysql'),
+    'password': os.environ.get('MYSQL_PASSWORD', 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='),
+    'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
+    'port': os.environ.get('MYSQL_PORT', '3306'),
+    }
 @app.route('/admin/admin_add_slots', methods=['GET'])
 def admin_input_slots():
     # Fetch property listings from the 'properties' table, including the location
