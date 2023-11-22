@@ -1838,24 +1838,15 @@ def register():
         # Hash the password using bcrypt
         password_hash = sha256_crypt.using(rounds=1000).hash(password)
 
-        # Generate a random unique token
-        verification_token = str(uuid.uuid4())
-
         try:
             connection = get_db_connection()
             with connection.cursor() as cursor:
-                # Insert the user along with the verification token
-                sql = "INSERT INTO users (Username, PasswordHash, Email, UserType, VerificationToken) VALUES (%s, %s, %s, %s, %s)"
-                cursor.execute(sql, (username, password_hash, email, user_type, verification_token))
+                # Insert the user without the verification token
+                sql = "INSERT INTO users (Username, PasswordHash, Email, UserType) VALUES (%s, %s, %s, %s)"
+                cursor.execute(sql, (username, password_hash, email, user_type))
                 connection.commit()
-                
-                # Send verification email
-                msg = Message('Email Verification', sender='your-email@example.com', recipients=[email])
-                verify_url = url_for('verify_email', token=verification_token, _external=True)
-                msg.body = f'Please click the following link to verify your email: {verify_url}'
-                mail.send(msg)
 
-                flash('Registration successful! Please check your email to verify your account.', 'success')
+                flash('Registration successful!', 'success')
         except pymysql.Error as e:
             flash(f"Error: {str(e)}", 'danger')
         finally:
