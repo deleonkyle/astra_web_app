@@ -1652,12 +1652,12 @@ def agent_registration():
                         elif existing_username:
                             flash('Username is already taken. Please choose a different username.', 'danger')
                         else:
-                            # Hash the password before storing it
-                            hashed_password = generate_password_hash(password, method='sha256')
+                            # Hash the password using sha256_crypt
+                            password_hash = sha256_crypt.using(rounds=1000).hash(password)
 
                             # Insert agent data into the database
                             insert_query = "INSERT INTO agents (Username, PasswordHash, Email, RealtyAffiliation, FirstName, LastName, DateOfBirth, PhoneNumber, Address) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
-                            cursor.execute(insert_query, (username, hashed_password, email, realty_affiliation, first_name, last_name, date_of_birth, phone_number, address))
+                            cursor.execute(insert_query, (username, password_hash, email, realty_affiliation, first_name, last_name, date_of_birth, phone_number, address))
                             connection.commit()
                             flash('Registration successful!', 'success')
                 except Exception as e:
@@ -1668,6 +1668,7 @@ def agent_registration():
                 return redirect(url_for('agent_login'))
 
     return render_template('agent_registration.html')
+
 
 @app.route('/agent/agent_login', methods=['GET', 'POST'])
 def agent_login():
