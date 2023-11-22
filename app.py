@@ -24,7 +24,7 @@ app.config['MAIL_USERNAME'] = 'admin@astrarealtycorporation.com'
 app.config['MAIL_PASSWORD'] = '@'
 mail = Mail(app)
 
-db_host = 'mysql-uetk'
+db_host = 'mysql-5-p6yg'
 db_user = 'mysql'
 db_password = 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='
 db_name = 'mysql'
@@ -33,7 +33,7 @@ app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
 def get_db_connection():
     db_config = {
-    'host': os.environ.get('MYSQL_HOST', 'mysql-uetk'),
+    'host': os.environ.get('MYSQL_HOST', 'mysql-5-p6yg'),
     'user': os.environ.get('MYSQL_USER', 'mysql'),
     'password': os.environ.get('MYSQL_PASSWORD', 's5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS/vT+gI='),
     'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
