@@ -14,7 +14,6 @@ import bcrypt
 from passlib.hash import sha256_crypt
 import uuid
 from flask_mail import Mail, Message
-from pymysqlpool import ConnectionPool
 
 
 app = Flask(__name__)
