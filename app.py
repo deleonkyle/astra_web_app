@@ -38,7 +38,7 @@ def get_db_connection():
             user='mysql',
             password='s5zuBntjJZ3LWK2Wb99eqreUxHiIZeOWItQlS',
             database='mysql',
-            port="3306",
+            port=3306,
             cursorclass=pymysql.cursors.DictCursor  # This allows fetching results as dictionaries
         )
         return connection
