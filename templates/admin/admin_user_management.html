@@ -37,14 +37,14 @@
             </div>
         </form>
 
-        <!-- Role Filtering Buttons -->
-        <div class="mb-3">
-            <a href="/admin/admin_user_management" class="btn btn-custom me-2">Show All Users</a>
-            <a href="/admin/admin_user_management?role=Client" class="btn btn-custom me-2">Show Clients</a>
-            <a href="/admin/admin_user_management?role=Agent" class="btn btn-custom me-2">Show Agents</a>
-            <a href="/admin/admin_user_management?role=Admin" class="btn btn-custom me-2">Show Admins</a>
-            <a href="/admin/admin_user_management?role=Manager" class="btn btn-custom">Show Managers</a>
-        </div>
+<!-- Role Filtering Buttons with Colors -->
+<div class="mb-3">
+    <a href="/admin/admin_user_management" class="btn btn-primary me-2{% if role == '' %} active{% endif %}">All Users</a>
+    <a href="/admin/admin_user_management?role=Client" class="btn btn-success me-2{% if role == 'Client' %} active{% endif %}">Clients</a>
+    <a href="/admin/admin_user_management?role=Agent" class="btn btn-info me-2{% if role == 'Agent' %} active{% endif %}">Agents</a>
+    <a href="/admin/admin_user_management?role=Admin" class="btn btn-danger me-2{% if role == 'Admin' %} active{% endif %}">Admins</a>
+</div>
+
 
         <div class="table-responsive">
             <table class="table custom-table">
@@ -71,7 +71,6 @@
                                 <option value="Client" {% if user[4] == 'Client' %}selected{% endif %}>Client</option>
                                 <option value="Agent" {% if user[4] == 'Agent' %}selected{% endif %}>Agent</option>
                                 <option value="Admin" {% if user[4] == 'Admin' %}selected{% endif %}>Admin</option>
-                                <option value="Manager" {% if user[4] == 'Manager' %}selected{% endif %}>Manager</option>
                                 <!-- Add more role options as needed -->
                             </select>
                     </td>
