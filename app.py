@@ -27,18 +27,31 @@ mail = Mail(app)
 
 app.config['UPLOAD_FOLDER'] = 'static/uploads'
 
-
 def get_db_connection():
     db_config = {
         'host': os.environ.get('MYSQL_HOST', 'mysql-q1l0'),
         'user': os.environ.get('MYSQL_USER', 'mysql'),
         'password': os.environ.get('MYSQL_PASSWORD', 'zQrfCUyi7bXOjs66YSgAGQ+9jSkD4mDY6gLUgQ40XzU='),
         'database': os.environ.get('MYSQL_DATABASE', 'mysql'),
-        'port': os.environ.get('MYSQL_PORT', 3306),
+        'port': int(os.environ.get('MYSQL_PORT', 3306)),  # Ensure the port is an integer
     }
     connection = pymysql.connect(**db_config)
-    return connection  # Add this line to return the connection object
+    return connection
 
+@app.route('/')
+def index():
+    connection = get_db_connection()  # Use the get_db_connection function
+    try:
+        with connection.cursor() as cursor:
+            query = "SELECT * FROM properties LIMIT 3"
+            cursor.execute(query)
+            featured_properties = cursor.fetchall()
+    except Exception as e:
+        print(f"Error executing SQL query: {str(e)}")
+    finally:
+        connection.close()
+
+    return render_template('index.html', featured_properties=featured_properties)
 
 @app.route('/admin/admin_add_slots', methods=['GET'])
 def admin_input_slots():
@@ -203,22 +216,6 @@ def admin_delete_slot(slot_id):
     cursor.close()
     db_connection.close()
     return redirect(url_for('admin_properties_slots'))
-
-@app.route('/')
-def index():
-    connection = pymysql.get_connection()
-    try:
-        with connection.cursor() as cursor:
-            query = "SELECT * FROM properties LIMIT 3"
-            cursor.execute(query)
-            featured_properties = cursor.fetchall()
-    except Exception as e:
-        print(f"Error executing SQL query: {str(e)}")
-    finally:
-        connection.close()
-
-    return render_template('index.html', featured_properties=featured_properties)
-
 
 @app.route('/contact')
 def contact():
