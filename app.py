@@ -14,6 +14,8 @@ import bcrypt
 from passlib.hash import sha256_crypt
 import uuid
 from flask_mail import Mail, Message
+from pymysqlpool import ConnectionPool
+
 
 app = Flask(__name__)
 
@@ -205,21 +207,16 @@ def admin_delete_slot(slot_id):
 
 @app.route('/')
 def index():
-    connection = get_db_connection()
-
-    if connection:
-        try:
-            with connection.cursor() as cursor:
-                query = "SELECT * FROM properties LIMIT 3"
-                cursor.execute(query)
-                featured_properties = cursor.fetchall()
-        except Exception as e:
-            print(f"Error executing SQL query: {str(e)}")
-        finally:
-            connection.close()
-    else:
-        # Handle the case where the database connection failed
-        featured_properties = []
+    connection = pymysqlpool.get_connection()
+    try:
+        with connection.cursor() as cursor:
+            query = "SELECT * FROM properties LIMIT 3"
+            cursor.execute(query)
+            featured_properties = cursor.fetchall()
+    except Exception as e:
+        print(f"Error executing SQL query: {str(e)}")
+    finally:
+        connection.close()
 
     return render_template('index.html', featured_properties=featured_properties)
 
