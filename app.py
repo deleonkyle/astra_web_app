@@ -768,6 +768,7 @@ def reservation(property_id, slot_id):
 
                         if reservation_successful:
                             flash('Visit and property slot reserved successfully!', 'success')
+                            return redirect(url_for('house_list', property_id=property_id))
                         else:
                             flash('Failed to reserve visit. Please try again.', 'danger')
                     else:
@@ -1736,8 +1737,13 @@ def property_search():
         query += " AND province = %s"
         parameters.append(province)
     if price:
-        query += " AND price <= %s"  # Modify the condition based on your requirements
-        parameters.append(price)
+        if price == '5000000+':
+            query += " AND price > %s"  # Properties above ₱5,000,000
+            parameters.append(5000000)
+        else:
+            price_range = price.split('-')
+            query += " AND price BETWEEN %s AND %s"  # Modify the condition based on your requirements
+            parameters.extend([int(price_range[0]), int(price_range[1])])
     if location:
         query += " AND location = %s"
         parameters.append(location)

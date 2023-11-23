@@ -116,6 +116,18 @@
   {% include '/includes/flash_message.html' %}
 
   <section class="search-section">
+    <div id="location-info" class="alert alert-info" style="display: none; background-color: rgb(255, 255, 255); padding: 20px; border-radius: 10px; position: absolute; top: 220px; left: 20px;">
+      At Astra Realty, we offer properties in both prime and regular locations. Here's what each of these terms means:
+      <p class="card-text">
+          <strong>Prime Location:</strong> Properties in prime locations are situated in highly desirable areas known for their convenience, accessibility, and value. These areas often have excellent infrastructure, proximity to amenities, and potential for higher property appreciation.
+      </p>
+      <p class="card-text">
+          <strong>Regular Location:</strong> Properties in regular locations are in good areas but may not have the same level of prestige or amenities as prime locations. They still offer comfortable living and investment opportunities at a more affordable price point.
+      </p>
+      <p class="card-text">
+          Our experienced team can help you explore properties in both prime and regular locations, depending on your preferences and budget. Contact us to learn more!
+      </p>
+  </div>
     <div class="container mt-5">
       <div class="row justify-content-center">
         <div class="col-md-6">
@@ -124,20 +136,27 @@
               <div class="form-group">
                 <label for="province" class="text-left">Province:</label>
                 <select name="province" id="province" class="form-control" placeholder="Select a Province">
-                  <option value="">-- Any Province --</option>
+                  <option value="">-- Select Province --</option>
                   <option value="Batangas">Batangas</option>
-                  <!-- Add more options for provinces -->
                 </select>
               </div>
               <div class="form-group">
-                <label for="price" class="text-left">Price:</label>
-                <input type="number" name="price" id="price" class="form-control" placeholder="Enter max price">
-              </div>
+                <label for="price" class="text-left">Price Range:</label>
+                <select name="price" id="price" class="form-control">
+                  <option value="">-- Select Price Range --</option>
+                  <option value="1000000-2000000">₱1,000,000 - ₱2,000,000</option>
+                  <option value="2000000-3000000">₱2,000,000 - ₱3,000,000</option>
+                  <option value="3000000-4000000">₱3,000,000 - ₱4,000,000</option>
+                  <option value="4000000-5000000">₱4,000,000 - ₱5,000,000</option>
+                  <option value="5000000+">Above ₱5,000,000</option> <!-- New option for above ₱5,000,000 -->
+                  <!-- Add more options as needed -->
+                </select>
+              </div>                           
               <div class="form-group">
                 <label for="location" class="text-left">Location:</label>
                 <div class="input-group">
                   <select name="location" id="location" class="form-control" placeholder="Select a Location">
-                    <option value="">-- Any Location --</option>
+                    <option value="">-- Select Prime or Regular --</option>
                     <option value="Prime Location">Prime Location</option>
                     <option value="Regular Location">Regular Location</option>
                     <!-- Add more options for locations -->
@@ -154,20 +173,6 @@
         </div>
       </div>
     </div>
-  
-    <div id="location-info" class="alert alert-info mt-3" style="display: none;">
-      At Astra Realty, we offer properties in both prime and regular locations. Here's what each of these terms means:
-      <p class="card-text">
-        <strong>Prime Location:</strong> Properties in prime locations are situated in highly desirable areas known for their convenience, accessibility, and value. These areas often have excellent infrastructure, proximity to amenities, and potential for higher property appreciation.
-      </p>
-      <p class="card-text">
-        <strong>Regular Location:</strong> Properties in regular locations are in good areas but may not have the same level of prestige or amenities as prime locations. They still offer comfortable living and investment opportunities at a more affordable price point.
-      </p>
-      <p class="card-text">
-        Our experienced team can help you explore properties in both prime and regular locations, depending on your preferences and budget. Contact us to learn more!
-      </p>
-    </div>
-    
   </section>
   
 

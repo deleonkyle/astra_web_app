@@ -122,30 +122,31 @@
             transform: translateX(-50%);
         }
 
-        /* Style for the zoom-in button */
         #zoom-in-button {
-            background-color: #40bf62;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin-right: 10px;
-            margin-top: 10px;
-        }
+        background-color: #40bf62;
+        color: #fff;
+        border: none;
+        padding: 8px 16px; /* Adjusted padding */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-right: 10px;
+        margin-top: 10px;
+        font-size: 8px; /* Adjusted font size */
+    }
 
-        /* Style for the zoom-out button */
-        #zoom-out-button {
-            background-color: #40bf62;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin-top: 10px;
-        }
+    /* Style for the zoom-out button */
+    #zoom-out-button {
+        background-color: #40bf62;
+        color: #fff;
+        border: none;
+        padding: 8px 16px; /* Adjusted padding */
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        margin-top: 10px;
+        font-size: 8px; /* Adjusted font size */
+    }
 
         /* Change button style on hover */
         #zoom-in-button:hover,
@@ -161,42 +162,65 @@
         </svg>
         Back</button>
 
-    <!-- Instructions section on the left -->
-    <div id="instructions" class="text-white">
-        <h2>Instructions</h2>
-        <p>Welcome to our 360 Virtual Tour! Here are some instructions to help you make the most of your experience:</p>
-        <ul>
-            <li>Use the <strong>mouse</strong> to click and drag on the tour to look around in 360 degrees.</li>
-            <li>Click on the <strong>Next</strong> and <strong>Previous</strong> buttons to move between different locations.</li>
-            <li>Explore the stunning scenery and immersive environments by navigating through the tour.</li>
-            <li>If you want to go back, simply click the <strong>Back</strong> button at the top left corner of the page.</li>
-        </ul>
-    </div>
+        <div id="instructions" class="text-white" style="font-size: 14px;"> <!-- Reduced font size -->
+            <h2>Instructions</h2>
+            <p>Welcome to our 360 Virtual Tour! Here are some instructions to help you make the most of your experience. Explore the stunning scenery and immersive environments by navigating through the tour:</p>
+            <ul>
+                <li>Use the <strong>mouse</strong> to click and drag on the tour to look around in 360 degrees.</li>
+                <li>Click on the <strong> Next >> </strong> and <strong> << Previous </strong> buttons to move between different locations.</li>
+                <li>If you want to go back, simply click the <strong> < Back</strong> button at the top left corner of the page.</li>
+                <li>To zoom in, click the <strong>Zoom In</strong> button <span style="vertical-align: middle;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" style="width: 16px; height: 16px; vertical-align: middle; fill: #fff;"><!-- Added fill: #fff; -->
+                    <g data-name="Zoom In"><path d="M8.5 3A5.5 5.5 0 1 0 14 8.5 5.51 5.51 0 0 0 8.5 3zM11 9H9v2H8V9H6V8h2V6h1v2h2z"/><path d="M17 8.5A8.5 8.5 0 1 0 8.5 17 8.51 8.51 0 0 0 17 8.5zM8.5 15A6.5 6.5 0 1 1 15 8.5 6.508 6.508 0 0 1 8.5 15z"/><path d="m17.5 14.8-1.07-1.07a9.641 9.641 0 0 1-2.7 2.7l1.07 1.07zM24.02 19.32 19.2 14.5l-4.7 4.7 4.82 4.82a3.323 3.323 0 1 0 4.7-4.7z"/></g></svg></span></li>
+                <li>To zoom out, click the <strong>Zoom Out</strong> button <span style="vertical-align: middle;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" style="width: 16px; height: 16px; vertical-align: middle; fill: #fff;"><!-- Added fill: #fff; -->
+                    <g data-name="Zoom Out"><path d="M8.5 3A5.5 5.5 0 1 0 14 8.5 5.51 5.51 0 0 0 8.5 3zM11 9H6V8h5z"/><path d="M17 8.5A8.5 8.5 0 1 0 8.5 17 8.506 8.506 0 0 0 17 8.5zM8.5 15A6.5 6.5 0 1 1 15 8.5 6.513 6.513 0 0 1 8.5 15z"/><path d="m17.5 14.8-1.07-1.07a9.641 9.641 0 0 1-2.7 2.7l1.07 1.07zM24.02 19.32 19.2 14.5l-4.7 4.7 4.82 4.82a3.323 3.323 0 1 0 4.7-4.7z"/></g></svg></span></li>
+                <li>To enter fullscreen mode, click the <strong>Fullscreen</strong> button at the bottom right corner of the image container.</li>
+            </ul>
+        </div>
 
-    <div id="scene-container" style="position: relative;">
-        <a-scene embedded="true">
-            <a-sky id="image-sky" src=""></a-sky>
-        </a-scene>
-    
-        <!-- Previous button with a different SVG -->
-        <button id="prev-button" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="m13.707 4.707-1.414-1.414L3.586 12l8.707 8.707 1.414-1.414L6.414 12l7.293-7.293z"/><path d="m19.707 4.707-1.414-1.414L9.586 12l8.707 8.707 1.414-1.414L12.414 12l7.293-7.293z"/></svg>
-        </button>
-    
-        <!-- Next button with the previous forward icon -->
-        <button id="next-button" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="m11.707 3.293-1.414 1.414L17.586 12l-7.293 7.293 1.414 1.414L20.414 12l-8.707-8.707z"/><path d="M5.707 3.293 4.293 4.707 11.586 12l-7.293 7.293 1.414 1.414L14.414 12 5.707 3.293z"/></svg>
+        <div id="scene-container" style="position: relative;">
+
+            <div id="loading-banner">
+                Loading...
+            </div>
+            
+            <a-scene embedded="true">
+                <a-sky id="image-sky" src=""></a-sky>
+            </a-scene>
+        
+            <!-- Previous button with a different SVG -->
+            <button id="prev-button" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="m13.707 4.707-1.414-1.414L3.586 12l8.707 8.707 1.414-1.414L6.414 12l7.293-7.293z"/><path d="m19.707 4.707-1.414-1.414L9.586 12l8.707 8.707 1.414-1.414L12.414 12l7.293-7.293z"/></svg>
             </button>
-    </div>
+        
+            <!-- Next button with the previous forward icon -->
+            <button id="next-button" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="m11.707 3.293-1.414 1.414L17.586 12l-7.293 7.293 1.414 1.414L20.414 12l-8.707-8.707z"/><path d="M5.707 3.293 4.293 4.707 11.586 12l-7.293 7.293 1.414 1.414L14.414 12 5.707 3.293z"/></svg>
+            </button>
+    
+            <!-- Zoom buttons as icons with transparent background at top center -->
+            <div id="zoom-buttons" style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%); display: flex; align-items: center;">
+                <div id="zoom-in-button" class="btn" onclick="zoomOut()" style="background-color: transparent;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" style="width: 24px; height: 24px;">
+                        <g data-name="Zoom In">
+                            <path d="M8.5 3A5.5 5.5 0 1 0 14 8.5 5.51 5.51 0 0 0 8.5 3zM11 9H9v2H8V9H6V8h2V6h1v2h2z" style="fill:#232326"/>
+                            <path d="M17 8.5A8.5 8.5 0 1 0 8.5 17 8.51 8.51 0 0 0 17 8.5zM8.5 15A6.5 6.5 0 1 1 15 8.5 6.508 6.508 0 0 1 8.5 15z" style="fill:#232326"/>
+                            <path d="m17.5 14.8-1.07-1.07a9.641 9.641 0 0 1-2.7 2.7l1.07 1.07zM24.02 19.32 19.2 14.5l-4.7 4.7 4.82 4.82a3.323 3.323 0 1 0 4.7-4.7z" style="fill:#232326"/>
+                        </g>
+                    </svg>
+                </div>
+                <div id="zoom-out-button" class="btn" onclick="zoomIn()" style="background-color: transparent;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" style="width: 24px; height: 24px;">
+                        <g data-name="Zoom Out">
+                            <path d="M8.5 3A5.5 5.5 0 1 0 14 8.5 5.51 5.51 0 0 0 8.5 3zM11 9H6V8h5z" style="fill:#232326"/>
+                            <path d="M17 8.5A8.5 8.5 0 1 0 8.5 17 8.506 8.506 0 0 0 17 8.5zM8.5 15A6.5 6.5 0 1 1 15 8.5 6.513 6.513 0 0 1 8.5 15z" style="fill:#232326"/>
+                            <path d="m17.5 14.8-1.07-1.07a9.641 9.641 0 0 1-2.7 2.7l1.07 1.07zM24.02 19.32 19.2 14.5l-4.7 4.7 4.82 4.82a3.323 3.323 0 1 0 4.7-4.7z" style="fill:#232326"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
 
-    <!-- Loading banner -->
-    <div id="loading-banner">Loading...</div>
 
-    <!-- Zoom buttons -->
-    <div id="zoom-buttons">
-        <button id="zoom-in-button" class="btn" onclick="zoomIn()">Zoom Out</button>
-        <button id="zoom-out-button" class="btn" onclick="zoomOut()">Zoom In</button>
-    </div>
 
     <script>
         let currentImageIndex = 0;
