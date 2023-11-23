@@ -3,18 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360 Virtual Tour</title>
+    <meta name="description" content="Explore our 360 virtual tour to discover stunning locations and immersive experiences.">
     <script src="/static/assets/aframe.js"></script>
-    <title>Panoramic Photo Viewer</title>
+    <style>
+        /* Set the background color for the entire page */
+        body {
+            background-color: #f0f0f0; /* Replace with your desired color */
+            margin: 0; /* Remove default margin */
+            display: flex;
+            flex-direction: row; /* Change to row to place instructions on the left */
+            align-items: center;
+            justify-content: center; /* Center horizontally */
+            height: 100vh; /* Make the body take the full viewport height */
+            position: relative; /* Set the position to relative for absolute positioning */
+        }
+
+        /* Style the container to control its size and appearance */
+        #scene-container {
+            width: 900px; /* Adjust the width as needed */
+            height: 600px; /* Adjust the height as needed */
+            border-radius: 10px; /* Add rounded corners */
+            overflow: hidden; /* Hide overflowing content */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Add a shadow effect */
+            position: relative; /* Set the position to relative for absolute positioning */
+        }
+
+        /* Center the container vertically */
+        #scene-container a-scene {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Style the back button */
+        .custom-back-button {
+            background-color: #40bf62; /* Change the background color */
+            color: #fff; /* Change the text color */
+            border: none; /* Remove the default button border */
+            padding: 10px 20px; /* Adjust padding as needed */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Show a pointer cursor on hover */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Add transition for hover effect */
+            position: absolute; /* Set the position to absolute */
+            top: 10px; /* Adjust top position to place it at the top */
+            left: 10px; /* Adjust left position to place it at the left */
+        }
+
+        /* Change button style on hover */
+        .custom-back-button:hover {
+            background-color: #0f4e2a; /* Change background color on hover */
+            color: #fff; /* Change text color on hover */
+        }
+
+        /* Style the next and previous buttons */
+        #prev-button,
+        #next-button {
+            background-color: rgb(17, 76, 51); /* Change the background color */
+            color: #fff; /* Change the text color */
+            border: none; /* Remove the default button border */
+            padding: 10px 20px; /* Adjust padding as needed */
+            border-radius: 5px; /* Add rounded corners */
+            cursor: pointer; /* Show a pointer cursor on hover */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Add transition for hover effect */
+            margin: 10px; /* Add margin to separate the buttons */
+        }
+
+        /* Change button style on hover */
+        #prev-button:hover,
+        #next-button:hover {
+            background-color: #00b342; /* Change background color on hover */
+        }
+
+        /* Style the loading banner */
+        #loading-banner {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            color: #fff; /* Text color */
+            position: absolute; /* Set the position to absolute */
+            top: 50%; /* Center vertically */
+            left: 50%; /* Center horizontally */
+            transform: translate(-50%, -50%); /* Center the banner */
+            padding: 10px 20px; /* Adjust padding as needed */
+            border-radius: 5px; /* Add rounded corners */
+            display: none; /* Initially hidden */
+            z-index: 1; /* Place it above other elements */
+        }
+
+         /* Style the instructions section on the left with custom font */
+         #instructions {
+            background-color: #333; /* Background color for instructions */
+            color: #fff; /* Text color for instructions */
+            padding: 20px; /* Adjust padding as needed */
+            width: 300px; /* Adjust the width as needed */
+            border-radius: 10px; /* Add rounded corners */
+            margin: 10px; /* Adjust margin as needed */
+            font-family: 'Arial', sans-serif; /* Add your custom font here */
+        }
+
+        /* Style the title of the instructions */
+        #instructions h2 {
+            color: #40bf62; /* Title text color */
+        }
+
+        /* Style the list items in the instructions */
+        #instructions ul {
+            list-style: disc;
+            padding-left: 20px;
+        }
+
+        /* Style for the zoom-in and zoom-out buttons */
+        #zoom-buttons {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Style for the zoom-in button */
+        #zoom-in-button {
+            background-color: #40bf62;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        /* Style for the zoom-out button */
+        #zoom-out-button {
+            background-color: #40bf62;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        /* Change button style on hover */
+        #zoom-in-button:hover,
+        #zoom-out-button:hover {
+            background-color: #0f4e2a;
+        }
+    </style>
 </head>
 <body>
-    <a-scene>
-        <!-- Use the a-sky to display the panoramic image -->
-        <a-sky id="image-sky" src=""></a-sky>
-    </a-scene>
+    <button id="backButton" class="btn custom-back-button" onclick="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+        </svg>
+        Back</button>
+
+    <!-- Instructions section on the left -->
+    <div id="instructions" class="text-white">
+        <h2>Instructions</h2>
+        <p>Welcome to our 360 Virtual Tour! Here are some instructions to help you make the most of your experience:</p>
+        <ul>
+            <li>Use the <strong>mouse</strong> to click and drag on the tour to look around in 360 degrees.</li>
+            <li>Click on the <strong>Next</strong> and <strong>Previous</strong> buttons to move between different locations.</li>
+            <li>Explore the stunning scenery and immersive environments by navigating through the tour.</li>
+            <li>If you want to go back, simply click the <strong>Back</strong> button at the top left corner of the page.</li>
+        </ul>
+    </div>
+
+    <div id="scene-container">
+        <a-scene embedded="true">
+            <a-sky id="image-sky" src=""></a-sky>
+        </a-scene>
+    </div>
 
     <!-- Navigation Buttons -->
     <button id="prev-button">Previous</button>
     <button id="next-button">Next</button>
+
+    <!-- Loading banner -->
+    <div id="loading-banner">Loading...</div>
+
+    <!-- Zoom buttons -->
+    <div id="zoom-buttons">
+        <button id="zoom-in-button" class="btn" onclick="zoomIn()">Zoom Out</button>
+        <button id="zoom-out-button" class="btn" onclick="zoomOut()">Zoom In</button>
+    </div>
 
     <script>
         let currentImageIndex = 0;
@@ -22,24 +196,57 @@
         const imageSky = document.getElementById('image-sky');
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
+        const loadingBanner = document.getElementById('loading-banner');
 
         prevButton.addEventListener('click', () => {
+            showLoadingBanner();
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
             updateImage();
         });
 
         nextButton.addEventListener('click', () => {
+            showLoadingBanner();
             currentImageIndex = (currentImageIndex + 1) % images.length;
             updateImage();
         });
 
+        function showLoadingBanner() {
+            loadingBanner.style.display = 'block';
+        }
+
+        function hideLoadingBanner() {
+            loadingBanner.style.display = 'none';
+        }
+
         function updateImage() {
             const newSrc = '/static/uploads/' + images[currentImageIndex][0];
             imageSky.setAttribute('src', newSrc);
+            // Simulate a delay to show the loading banner (you can remove this in production)
+            setTimeout(hideLoadingBanner, 2000); // Hide the loading banner after 2 seconds (adjust as needed)
         }
 
         // Initialize the initial image
         updateImage();
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Zoom-in function
+        function zoomIn() {
+            const camera = document.querySelector('[camera]');
+            if (camera && camera.getAttribute('camera').zoom > 0.1) {
+                camera.setAttribute('camera', 'zoom', (camera.getAttribute('camera').zoom - 0.1).toFixed(2));
+            }
+        }
+
+        // Zoom-out function
+        function zoomOut() {
+            const camera = document.querySelector('[camera]');
+            if (camera && camera.getAttribute('camera').zoom < 2.0) {
+                camera.setAttribute('camera', 'zoom', (camera.getAttribute('camera').zoom + 0.1).toFixed(2));
+            }
+        }
     </script>
 </body>
 </html>
