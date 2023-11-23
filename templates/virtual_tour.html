@@ -6,6 +6,7 @@
     <title>360 Virtual Tour</title>
     <meta name="description" content="Explore our 360 virtual tour to discover stunning locations and immersive experiences.">
     <script src="/static/assets/aframe.js"></script>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* Set the background color for the entire page */
         body {
@@ -131,6 +132,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
             margin-right: 10px;
+            margin-top: 10px;
         }
 
         /* Style for the zoom-out button */
@@ -142,7 +144,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s ease, color 0.3s ease;
-            margin-top: 20px;
+            margin-top: 10px;
         }
 
         /* Change button style on hover */
@@ -171,15 +173,26 @@
         </ul>
     </div>
 
-    <div id="scene-container">
+    <div id="scene-container" style="position: relative;">
         <a-scene embedded="true">
             <a-sky id="image-sky" src=""></a-sky>
         </a-scene>
+    
+        <!-- Previous button with a different SVG -->
+        <button id="prev-button" style="position: absolute; top: 50%; left: 10px; transform: translateY(-50%);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M6.646 12.646a.5.5 0 0 1 0-.708L4.293 10H10a1 1 0 0 1 0 2H4.293l2.353-2.353a.5.5 0 1 1 .708.708L5.207 11l1.147 1.146a.5.5 0 0 1-.708.708z"/>
+                <path fill-rule="evenodd" d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0zM1 8a7 7 0 0 1 14 0A7 7 0 0 1 1 8z"/>
+            </svg>
+        </button>
+    
+        <!-- Next button with the previous forward icon -->
+        <button id="next-button" style="position: absolute; top: 50%; right: 10px; transform: translateY(-50%);">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-forward-fill" viewBox="0 0 16 16">
+                <path d="m9.77 12.11 4.012-2.953a.647.647 0 0 0 0-1.114L9.771 5.09a.644.644 0 0 0-.971.557V6.65H2v3.9h6.8v1.003c0 .505.545.808.97.557z"/>
+            </svg>
+        </button>
     </div>
-
-    <!-- Navigation Buttons -->
-    <button id="prev-button">Previous</button>
-    <button id="next-button">Next</button>
 
     <!-- Loading banner -->
     <div id="loading-banner">Loading...</div>
