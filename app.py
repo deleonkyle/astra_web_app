@@ -227,14 +227,14 @@ def v_tour():
     try:
         connection = get_db_connection()
         with connection.cursor() as cursor:
-            cursor.execute("""
-    SELECT p.*, 
+           cursor.execute("""
+    SELECT DISTINCT p.*, 
            CASE WHEN vi.image_data IS NOT NULL THEN 1 ELSE 0 END AS has_virtual_tour
     FROM properties AS p
     LEFT JOIN property_virtual_images AS vi ON p.ListingID = vi.PropertyID
     WHERE vi.image_data IS NOT NULL
 """)
-            properties = cursor.fetchall()
+        properties = cursor.fetchall()
     except pymysql.Error as e:
         flash(f"Error: {str(e)}", 'danger')
         properties = []
